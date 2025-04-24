@@ -186,7 +186,21 @@ exports.forgotPassword = async (req,res) =>{
     const mailOption = {
         to : user.email,
         subject: "Mã OTP đặt lại mật khẩu",
-        text: `Mã OTP của bạn là : ${newOTP}. Có hiệu lực trong 10 phút !`
+        html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 10px;">
+            <h2 style="color: #333;">🔐 Đặt lại mật khẩu</h2>
+            <p>Xin chào <strong>${user.email}</strong>,</p>
+            <p>Bạn vừa yêu cầu đặt lại mật khẩu cho tài khoản của mình. Đây là mã OTP để xác thực:</p>
+            <div style="text-align: center; margin: 20px 0;">
+                <span style="display: inline-block; font-size: 32px; font-weight: bold; color: #ffffff; background-color: #007BFF; padding: 10px 20px; border-radius: 8px;">
+                    ${newOTP}
+                </span>
+            </div>
+            <p><strong>Mã OTP có hiệu lực trong 10 phút.</strong></p>
+            <p>Nếu bạn không yêu cầu thao tác này, vui lòng bỏ qua email này.</p>
+            <p style="color: #888;">Trân trọng,<br>QKShop</p>
+        </div>
+    `
     };
 
     transporter.sendMail(mailOption, (error) =>{
